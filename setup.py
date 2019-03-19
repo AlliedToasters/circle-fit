@@ -6,14 +6,14 @@ A simple library for fitting circles to data in 2-D space. Impliments a simple l
 
 setup(
     name='circle-fit',
-    version='0.1.0',
+    version='0.1.2',
     description='Circle Fitting Library in Python',
     long_description=long_desc,
     author='Michael Klear',
     author_email='michael.r.klear@gmail.com',
-    url='https://github.com/AlliedToasters/circle-fit/archive/v0.1.0.tar.gz',
+    url='https://github.com/AlliedToasters/circle-fit/archive/v0.1.2.tar.gz',
     install_requires=[
-        'numpy', 
+        'numpy',
         'scipy',
         'matplotlib'
     ],
