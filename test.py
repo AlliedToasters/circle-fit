@@ -33,11 +33,9 @@ class AppTest(unittest.TestCase):
 
     def test_hyper_fit(self):
         circle = hyper_fit(self.data)
-        raise Exception(circle)
 
     def test_circle_fit(self):
         circle = least_squares_circle(self.data)
-        raise Exception(circle)
 
 
 
