@@ -4,15 +4,15 @@ from matplotlib import pyplot as plt, cm, colors
 from math import sqrt, pi
 
 def calc_R(x,y, xc, yc):
-    """ 
-    calculate the distance of each 2D points from the center (xc, yc) 
+    """
+    calculate the distance of each 2D points from the center (xc, yc)
     """
     return np.sqrt((x-xc)**2 + (y-yc)**2)
 
 def f(c, x, y):
-    """ 
-    calculate the algebraic distance between the data points 
-    and the mean circle centered at c=(xc, yc) 
+    """
+    calculate the algebraic distance between the data points
+    and the mean circle centered at c=(xc, yc)
     """
     Ri = calc_R(x, y, *c)
     return Ri - Ri.mean()
@@ -30,7 +30,7 @@ def sigma(coords, x, y, r):
 def hyper_fit(coords, IterMax=99, verbose=False):
     """
     Fits coords to circle using hyperfit algorithm.
-    
+
     Inputs:
         - coords, list or numpy array with len>2 of the form:
         [
@@ -38,14 +38,14 @@ def hyper_fit(coords, IterMax=99, verbose=False):
     ...,
     [x_coord, y_coord]
     ]
-    
+
     Outputs:
-    
+
         - xc : x-coordinate of solution center (float)
         - yc : y-coordinate of solution center (float)
         - R : Radius of solution (float)
         - residu : s, sigma - variance of data wrt solution (float)
-    
+
     """
     n = len(coords)
     X = np.array([x[0] for x in coords])
@@ -53,7 +53,7 @@ def hyper_fit(coords, IterMax=99, verbose=False):
     Xi = X - X.mean()
     Yi = Y - Y.mean()
     Zi = Xi*Xi + Yi*Yi
-    
+
     #compute moments
     Mxy = (Xi*Yi).sum()/n;
     Mxx = (Xi*Xi).sum()/n;
@@ -61,7 +61,7 @@ def hyper_fit(coords, IterMax=99, verbose=False):
     Mxz = (Xi*Zi).sum()/n;
     Myz = (Yi*Zi).sum()/n;
     Mzz = (Zi*Zi).sum()/n;
-    
+
     #computing the coefficients of characteristic polynomial
     Mz = Mxx + Myy;
     Cov_xy = Mxx*Myy - Mxy*Mxy;
@@ -71,7 +71,7 @@ def hyper_fit(coords, IterMax=99, verbose=False):
     A1 = Var_z*Mz + 4.*Cov_xy*Mz - Mxz*Mxz - Myz*Myz;
     A0 = Mxz*(Mxz*Myy - Myz*Mxy) + Myz*(Myz*Mxx - Mxz*Mxy) - Var_z*Cov_xy;
     A22 = A2 + A2;
-    
+
     #finding the root of the characteristic polynomial
     y = A0
     x = 0.
@@ -84,14 +84,14 @@ def hyper_fit(coords, IterMax=99, verbose=False):
         if abs(ynew)>=abs(y):
             break
         x, y = xnew, ynew
-        
+
     det = x*x - x*Mz + Cov_xy;
     Xcenter = (Mxz*(Myy - x) - Myz*Mxy)/det/2.;
     Ycenter = (Myz*(Mxx - x) - Mxz*Mxy)/det/2.;
-    
+
     x = Xcenter + X.mean();
     y = Ycenter + Y.mean();
-    r = sqrt(Xcenter*Xcenter + Ycenter*Ycenter + Mz - x - x);
+    r = sqrt(abs(Xcenter*Xcenter + Ycenter*Ycenter + Mz - x - x));
     s = sigma(coords,x,y,r);
     iter_ = i;
     if verbose:
@@ -103,16 +103,16 @@ def least_squares_circle(coords):
     """
     Circle fit using least-squares solver.
     Inputs:
-    
+
         - coords, list or numpy array with len>2 of the form:
         [
     [x_coord, y_coord],
     ...,
     [x_coord, y_coord]
     ]
-    
+
     Outputs:
-    
+
         - xc : x-coordinate of solution center (float)
         - yc : y-coordinate of solution center (float)
         - R : Radius of solution (float)
@@ -135,14 +135,14 @@ def plot_data_circle(x, y, xc, yc, R):
     """
     Plot data and a fitted circle.
     Inputs:
-    
+
         x : data, x values (array)
         y : data, y values (array)
         xc : fit circle center (x-value) (float)
         yc : fit circle center (y-value) (float)
         R : fir circle radius (float)
-        
-    Output: 
+
+    Output:
         None (generates matplotlib plot).
     """
     f = plt.figure(facecolor='white')
@@ -155,7 +155,7 @@ def plot_data_circle(x, y, xc, yc, R):
     plt.plot(x_fit, y_fit, 'b-' , label="fitted circle", lw=2)
     plt.plot([xc], [yc], 'bD', mec='y', mew=1)
     plt.xlabel('x')
-    plt.ylabel('y')   
+    plt.ylabel('y')
     # plot data
     plt.scatter(x, y, c='red', label='data')
 
