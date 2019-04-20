@@ -49,10 +49,10 @@ def hyper_fit(coords, IterMax=99, verbose=False):
 
     """
     X, X = None, None
-    if type(coords) == np.ndarray:
+    if isinstance(coords, np.ndarray):
         X = coords[:, 0]
         Y = coords[:, 1]
-    elif type(coords) == list:
+    elif isinstance(coords, list):
         X = np.array([x[0] for x in coords])
         Y = np.array([x[1] for x in coords])
     else:
@@ -131,10 +131,10 @@ def least_squares_circle(coords):
     """
 
     x, y = None, None
-    if type(coords) == np.ndarray:
+    if isinstance(coords, np.ndarray):
         x = coords[:, 0]
         y = coords[:, 1]
-    elif type(coords) == list:
+    elif isinstance(coords, list):
         x = np.array([point[0] for point in coords])
         y = np.array([point[1] for point in coords])
     else:
