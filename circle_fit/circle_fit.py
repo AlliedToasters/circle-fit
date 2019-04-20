@@ -91,7 +91,7 @@ def hyper_fit(coords, IterMax=99, verbose=False):
 
     x = Xcenter + X.mean();
     y = Ycenter + Y.mean();
-    r = sqrt(abs(Xcenter*Xcenter + Ycenter*Ycenter + Mz - x - x));
+    r = sqrt(abs(Xcenter**2 + Ycenter**2 + Mz));
     s = sigma(coords,x,y,r);
     iter_ = i;
     if verbose:
