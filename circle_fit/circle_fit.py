@@ -38,6 +38,7 @@ def hyper_fit(coords, IterMax=99, verbose=False):
     ...,
     [x_coord, y_coord]
     ]
+        or numpy array of shape (n, 2)
 
     Outputs:
 
@@ -47,9 +48,18 @@ def hyper_fit(coords, IterMax=99, verbose=False):
         - residu : s, sigma - variance of data wrt solution (float)
 
     """
-    n = len(coords)
-    X = np.array([x[0] for x in coords])
-    Y = np.array([x[1] for x in coords])
+    X, X = None, None
+    if type(coords) == np.ndarray:
+        X = coords[:, 0]
+        Y = coords[:, 1]
+    elif type(coords) == list:
+        X = np.array([x[0] for x in coords])
+        Y = np.array([x[1] for x in coords])
+    else:
+        raise Exception("Parameter 'coords' is an unsupported type: " + str(type(coords)))
+
+    n = X.shape[0]
+
     Xi = X - X.mean()
     Yi = Y - Y.mean()
     Zi = Xi*Xi + Yi*Yi
@@ -110,6 +120,7 @@ def least_squares_circle(coords):
     ...,
     [x_coord, y_coord]
     ]
+        or numpy array of shape (n, 2)
 
     Outputs:
 
@@ -118,9 +129,18 @@ def least_squares_circle(coords):
         - R : Radius of solution (float)
         - residu : MSE of solution against training data (float)
     """
+
+    x, y = None, None
+    if type(coords) == np.ndarray:
+        x = coords[:, 0]
+        y = coords[:, 1]
+    elif type(coords) == list:
+        x = np.array([point[0] for point in coords])
+        y = np.array([point[1] for point in coords])
+    else:
+        raise Exception("Parameter 'coords' is an unsupported type: " + str(type(coords)))
+
     # coordinates of the barycenter
-    x = np.array([x[0] for x in coords])
-    y = np.array([x[1] for x in coords])
     x_m = np.mean(x)
     y_m = np.mean(y)
     center_estimate = x_m, y_m
