@@ -4,9 +4,11 @@ long_desc = """
 A simple library for fitting circles to data in 2-D space. Impliments a simple least-squares solver and the state-of-the-art "hyper-fit" algorithm (https://www.sciencedirect.com/science/article/pii/S0167947310004809?via%3Dihub) in python.
 """
 
+version = '0.1.3'
+
 setup(
     name='circle-fit',
-    version='0.1.2',
+    version=version,
     description='Circle Fitting Library in Python',
     long_description=long_desc,
     author='Michael Klear',
