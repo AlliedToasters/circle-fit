@@ -26,6 +26,7 @@ class AppTest(unittest.TestCase):
             [298.1077693546644, 22046.24943032021],
             [296.343894570113, 22048.4542724672]
         ]
+        self.numpy_data = np.array(self.data)
 
     def tearDown(self):
         t = time.time() - self.startTime
@@ -33,9 +34,11 @@ class AppTest(unittest.TestCase):
 
     def test_hyper_fit(self):
         circle = hyper_fit(self.data)
+        circle = hyper_fit(self.numpy_data)
 
     def test_circle_fit(self):
         circle = least_squares_circle(self.data)
+        circle = least_squares_circle(self.numpy_data)
 
 
 
