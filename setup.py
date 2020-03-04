@@ -13,7 +13,7 @@ setup(
     long_description=long_desc,
     author='Michael Klear',
     author_email='michael.r.klear@gmail.com',
-    url='https://github.com/AlliedToasters/circle-fit/archive/v0.1.2.tar.gz',
+    url='https://github.com/AlliedToasters/circle-fit/',
     install_requires=[
         'numpy',
         'scipy',
