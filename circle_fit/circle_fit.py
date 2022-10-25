@@ -100,20 +100,19 @@ def calc_R(x: npt.NDArray, y: npt.NDArray, xc: float, yc: float) -> npt.NDArray:
     return np.sqrt((x - xc) ** 2 + (y - yc) ** 2)
 
 
-def f(x: npt.NDArray, y: npt.NDArray, xc: float, yc: float) -> npt.NDArray:
+def lsq_fun(c: npt.NDArray, x: npt.NDArray, y: npt.NDArray) -> npt.NDArray:
     """
     Calculate the mean algebraic distance between the 2D points (x, y)  and the circle centered at (xc, yc)
     ----------
+    c  : np.ndarray. Center coordinates.
     x   : np.ndarray. X point coordinates.
     y   : np.ndarray. Y point coordinates.
-    xc  : float. Center X coordinate.
-    yc  : float. Center Y coordinate.
 
     Returns
     -------
     distance : float. Mean distance from (xc, yc) to (x, y).
     """
-    Ri = calc_R(x, y, xc, yc)
+    Ri = calc_R(x, y, c[0], c[1])
     mean: float = Ri.mean()
     return Ri - mean
 
@@ -221,7 +220,7 @@ def lm(coords: Union[npt.NDArray, List], par_ini: npt.NDArray, iter_max: int = 5
         D = np.sqrt(Dx ** 2 + Dy ** 2)
         _j = np.array([-Dx / D, -Dy / D, -np.ones(len(x))]).transpose()
         _g: npt.NDArray = D - par[2]
-        _f = float(np.linalg.norm(g) ** 2)
+        _f = float(np.linalg.norm(_g) ** 2)
         return _j, _g, _f
 
     lambda_sqrt = np.sqrt(lambda_ini)
@@ -355,7 +354,7 @@ def kmh(coords: Union[npt.NDArray, List]) -> Tuple[float, ...]:
     P = Evecmin[1:4] / Evecmin[0]
     xc = -P[0] / 2
     yc = -P[1] / 2
-    r = np.sqrt(x ** 2 + y ** 2 - P[2])
+    r: float = np.mean(calc_R(x, y, xc, yc))
     s = sigma(x, y, xc, yc, r)
     return xc, yc, r, s
 
@@ -535,7 +534,8 @@ def standardLSQ(coords: Union[np.ndarray, List]) -> Tuple[float, ...]:
     """
     x, y = convert_input(coords)
     X, Y, centroid = center_data(x, y)
-    center, cov_x, infodict, mesg, ier = optimize.leastsq(f, centroid, args=(X, Y))
+    ret = optimize.leastsq(lsq_fun, centroid, args=(X, Y))
+    center = ret[0]
     xc: float = center[0]
     yc: float = center[1]
     Ri = calc_R(x, y, *center)
