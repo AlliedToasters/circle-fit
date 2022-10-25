@@ -1,1 +1,1 @@
-from .circle_fit import hyper_fit, least_squares_circle, plot_data_circle
+from .circle_fit import riemannSWFLa, lm, prattSVD, taubinSVD, hyperSVD, kmh, hyperLSQ, standardLSQ, plot_data_circle
