@@ -1,6 +1,6 @@
 import unittest
 import time
-from circle_fit import hyper_fit, least_squares_circle
+from circle_fit import riemannSWFLa, lm, prattSVD, taubinSVD, hyperSVD, kmh, hyperLSQ, standardLSQ
 import numpy as np
 
 class AppTest(unittest.TestCase):
@@ -32,16 +32,38 @@ class AppTest(unittest.TestCase):
         t = time.time() - self.startTime
         print("%s: %.3f seconds" % (self.id(), t))
 
-    def test_hyper_fit(self):
-        circle = hyper_fit(self.data)
-        circle = hyper_fit(self.numpy_data)
+    def test_hyperLSQ(self):
+        circle = hyperLSQ(self.data)
+        circle = hyperLSQ(self.numpy_data)
 
-    def test_circle_fit(self):
-        circle = least_squares_circle(self.data)
-        circle = least_squares_circle(self.numpy_data)
+    def test_standardLSQ(self):
+        circle = standardLSQ(self.data)
+        circle = standardLSQ(self.numpy_data)
 
+    def test_riemannSWFLa(self):
+        circle = riemannSWFLa(self.data)
+        circle = riemannSWFLa(self.numpy_data)
 
+    def test_lm(self):
+        par_ini = np.array([310, 22060, 20])
+        circle = lm(self.data, par_ini)
+        circle = lm(self.numpy_data, par_ini)
 
+    def test_prattSVD(self):
+        circle = prattSVD(self.data)
+        circle = prattSVD(self.numpy_data)
+
+    def test_taubinSVD(self):
+        circle = taubinSVD(self.data)
+        circle = taubinSVD(self.numpy_data)
+
+    def test_hyperSVD(self):
+        circle = hyperSVD(self.data)
+        circle = hyperSVD(self.numpy_data)
+
+    def test_kmh(self):
+        circle = kmh(self.data)
+        circle = kmh(self.numpy_data)
 
 if __name__ == '__main__':
     unittest.main()
