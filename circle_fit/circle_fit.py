@@ -1,17 +1,20 @@
 """
-A collection of circle fitting algorithms based on MATLAB implementations found at:
+A collection of circle fitting algorithms.
+
+Some are based on MATLAB implementations by Nikolai Chernov:
 https://people.cas.uab.edu/~mosya/cl/MATLABcircle.html
 
 Implemented algorithms:
 
+hyperLSQ()      : Least squares circle fit with "hyperaccuracy" by Kenichi Kanatani, Prasanna Rangarajan
+standardLSQ()   : Least squares circle fit
 riemannSWFLa()  : Riemann circle fit, SWFL version A
 lm()            : Levenberg-Marquardt in the full (a,b,R) parameter space
 prattSVD()      : Algebraic circle fit by V. Pratt
 taubinSVD()     : Algebraic circle fit by G. Taubin
 hyperSVD()      : Algebraic circle fit with "hyperaccuracy"
 kmh()           : Consistent circle fit by A. Kukush, I. Markovsky, S. Van Huffel
-hyperLSQ()      : Least squares circle fit with "hyperaccuracy" by Kenichi Kanatani, Prasanna Rangarajan
-standardLSQ()   : Least squares circle fit
+
 """
 import numpy as np
 import numpy.typing as npt
@@ -512,7 +515,7 @@ def hyperLSQ(coords: Union[npt.NDArray, List], iter_max: int = 99) -> Tuple[floa
 
 def least_squares_circle(coords: Union[npt.NDArray, List]) -> Tuple[float, ...]:
     DeprecationWarning("least_squares_circle() is deprecated. Please use standardLSQ().")
-    return lsq(coords)
+    return standardLSQ(coords)
 
 
 def standardLSQ(coords: Union[np.ndarray, List]) -> Tuple[float, ...]:
@@ -541,14 +544,13 @@ def standardLSQ(coords: Union[np.ndarray, List]) -> Tuple[float, ...]:
     return xc, yc, r, s
 
 
-def plot_data_circle(x: npt.NDArray, y: npt.NDArray, xc: float, yc: float, r: float) -> None:
+def plot_data_circle(coords: Union[npt.NDArray, List], xc: float, yc: float, r: float) -> None:
     """
     Plot data and a fitted circle.
 
     Parameters
     ----------
-    x   : np.ndarray. X point coordinates.
-    y   : np.ndarray. Y point coordinates.
+    coords: 2D List or 2D np.ndarray of shape (n,2). X,Y point coordinates.
     xc  : float. x coordinate of the circle fit
     yc  : float. y coordinate of the circle fit
     r   : float. Radius of the circle fit
@@ -556,10 +558,11 @@ def plot_data_circle(x: npt.NDArray, y: npt.NDArray, xc: float, yc: float, r: fl
     Returns
     -------
     """
+    x, y = convert_input(coords)
     _ = plt.figure(facecolor='white')
     plt.axis('equal')
 
-    theta_fit = np.linspace(-pi, pi, 180)
+    theta_fit = np.linspace(-np.pi, np.pi, 180)
 
     x_fit = xc + r * np.cos(theta_fit)
     y_fit = yc + r * np.sin(theta_fit)
