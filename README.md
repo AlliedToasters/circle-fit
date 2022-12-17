@@ -1,6 +1,4 @@
 # Circle-Fit 2
-This is a fork of the `circle-fit` library, which appears to be dead. `circle-fit2` develops the library further with 
-more algorithms, type hinting, and thorough documentation.
 ## A Circle Fitting Library for Python
 Given a collection of points in 2D space, a common problem is finding the parameters of a circle that best approximate 
 these points. This library implements a collection of different circle fitting algorithms:
@@ -52,3 +50,16 @@ a circle fit overlaid on top. Example use:
 xc, yc, r, sigma = taubinSVD(point_coordinates)
 plot_data_circle(point_coordinates, xc, yc, r)
 ```
+
+### Contributors and Maintainers
+This library is a community collaboration, all work is voluntary.
+
+#### To Contribute
+Please open a pull request with the changes you would like to contribute ([example](https://github.com/AlliedToasters/circle-fit/pull/10))
+
+#### Contact
+As we are volunteers, please be patient when requesting support. You can either open an issue if you think you've found a bug with the code, or contact one of us directly if you have a user issue:
+
+ - michael.r.klear@gmail.com
+ - mag.lauritzen@gmail.com
+
