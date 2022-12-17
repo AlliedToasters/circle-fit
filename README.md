@@ -33,7 +33,7 @@ xc, yc, r, sigma = taubinSVD(point_coordinates)
 ```
 
 ## Data format
-Your data must have at least two points in 2-D space. The algorithms in `circle-fit2` expects either 
+Your data must have at least two points in 2-D space. The algorithms in `circle-fit` expects either 
 a 2D List or numpy ndarray of shape `(n, 2)`, where n is the number of points in your dataset.
 
 All the algorithms available in this library return four values:
