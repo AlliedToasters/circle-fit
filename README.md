@@ -1,5 +1,6 @@
 ![LICENCE](https://img.shields.io/github/license/AlliedToasters/circle-fit)
 [![Flake8](https://github.com/AlliedToasters/circle-fit/actions/workflows/flake8.yml/badge.svg)](https://github.com/AlliedToasters/circle-fit/actions/workflows/flake8.yml)
+[![PyTest](https://github.com/AlliedToasters/circle-fit/actions/workflows/PyTest.yml/badge.svg)](https://github.com/AlliedToasters/circle-fit/actions/workflows/PyTest.yml)
 ![Version](https://img.shields.io/pypi/v/circle-fit)
 ![Python](https://img.shields.io/pypi/pyversions/circle-fit)
 # Circle-Fit
