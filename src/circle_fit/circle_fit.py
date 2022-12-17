@@ -16,13 +16,14 @@ hyperSVD()      : Algebraic circle fit with "hyperaccuracy"
 kmh()           : Consistent circle fit by A. Kukush, I. Markovsky, S. Van Huffel
 
 """
+from itertools import combinations
+from typing import Union, List, Tuple
+
 import numpy as np
 import numpy.typing as npt
-from itertools import combinations
-from matplotlib import pyplot as plt, cm, colors
+from matplotlib import pyplot as plt
 from scipy import optimize  # type: ignore[import]
 from scipy.linalg import svd  # type: ignore[import]
-from typing import Union, List, Tuple
 
 
 def convert_input(coords: Union[npt.NDArray, List]) -> Tuple[npt.NDArray, ...]:
@@ -301,7 +302,7 @@ def prattSVD(coords: Union[npt.NDArray, List]) -> Tuple[float, ...]:
     return xc, yc, r, s
 
 
-def kmh(coords: Union[npt.NDArray, List]) -> Tuple[float, ...]:
+def kmh(coords: Union[npt.NDArray, List], iter_max: int = 99, epsilon: float = 1E-9) -> Tuple[float, ...]:
     """
     Based on original MATLAB code by Nikolai Chernov: https://people.cas.uab.edu/~mosya/cl/KMvH.m.
 
@@ -312,7 +313,9 @@ def kmh(coords: Union[npt.NDArray, List]) -> Tuple[float, ...]:
 
     Parameters
     ----------
-    coords: 2D List or 2D np.ndarray of shape (n,2). X,Y point coordinates.
+    coords      : 2D List or 2D np.ndarray of shape (n,2). X,Y point coordinates.
+    iter_max    : Optional int. Maximum number of iterations for the iterative fitting algorithm.
+    epsilon     : Optional float. Iteration stops when the improvement becomes less than this value.
 
     Returns
     -------
@@ -321,6 +324,7 @@ def kmh(coords: Union[npt.NDArray, List]) -> Tuple[float, ...]:
     r   : float. Radius of the circle fit
     s   : float. Sigma (RMS of error) of the circle fit
     """
+    assert iter_max > 0
     x, y = convert_input(coords)
 
     Z = x * x + y * y
@@ -337,18 +341,23 @@ def kmh(coords: Union[npt.NDArray, List]) -> Tuple[float, ...]:
     scatter = np.matmul(XYcent.transpose(), XYcent)
     D, _ = np.linalg.eig(scatter)
     Vmax = min(D)
-    epsilon = 0.00001 * Vmax
+    _epsilon = epsilon * Vmax
 
-    while Vmax - Vmin > epsilon:
+    def eval():
         V = (Vmin + Vmax) / 2
         M = M0 - V * (M1 - V * M2)
-        Eval, _ = np.linalg.eig(M)
+        Eval, Evec = np.linalg.eig(M)
+        return Eval, Evec, V
+
+    for i in range(iter_max):
+        Eval, Evec, V = eval()
         if np.min(Eval) > 0:
             Vmin = V
         else:
             Vmax = V
+        if Vmax - Vmin <= _epsilon:
+            break
 
-    Eval, Evec = np.linalg.eig(M0 - (Vmin + Vmax) / 2 * (M1 - (Vmin + Vmax) / 2 * M2))
     min_idx = np.argmin(Eval)
     Evecmin = Evec[:, min_idx]
     P = Evecmin[1:4] / Evecmin[0]
@@ -534,7 +543,7 @@ def standardLSQ(coords: Union[np.ndarray, List]) -> Tuple[float, ...]:
     """
     x, y = convert_input(coords)
     X, Y, centroid = center_data(x, y)
-    ret = optimize.leastsq(lsq_fun, centroid, args=(X, Y))
+    ret = optimize.leastsq(lsq_fun, centroid, args=(x, y))
     center = ret[0]
     xc: float = center[0]
     yc: float = center[1]
