@@ -17,3 +17,15 @@ There are two algorithms available: `hyper_fit` and `least_squares_circle`. Both
 - R : Radius of solution (float)
 - variance or residual (float)
 ```
+
+### Contributors and Maintainers
+This library is a community collaboration, all work is voluntary.
+
+#### To Contribute
+Please open a pull request with the changes you would like to contribute ([example](https://github.com/AlliedToasters/circle-fit/pull/10))
+
+#### Contact
+As we are volunteers, please be patient when requesting support. You can either open an issue if you think you've found a bug with the code, or contact one of us directly if you have a user issue:
+
+ - michael.r.klear@gmail.com
+ - etc.
