@@ -1,3 +1,7 @@
+![LICENCE](https://img.shields.io/github/license/AlliedToasters/circle-fit)
+[![Flake8](https://github.com/AlliedToasters/circle-fit/actions/workflows/flake8.yml/badge.svg)](https://github.com/AlliedToasters/circle-fit/actions/workflows/flake8.yml)
+![Version](https://img.shields.io/pypi/v/circle-fit)
+![Python](https://img.shields.io/pypi/pyversions/circle-fit)
 # Circle-Fit
 ## A Circle Fitting Library for Python
 Given a collection of points in 2D space, a common problem is finding the parameters of a circle that best approximate 
