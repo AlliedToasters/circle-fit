@@ -1,4 +1,4 @@
-# Circle-Fit 2
+# Circle-Fit
 ## A Circle Fitting Library for Python
 Given a collection of points in 2D space, a common problem is finding the parameters of a circle that best approximate 
 these points. This library implements a collection of different circle fitting algorithms:
@@ -21,12 +21,13 @@ Each algorithm may work better in specific cases. If you are in doubt about whic
 is a good starting point.
 
 ## Installation
-`circle-fits2` is not yet available from PyPi. Coming very soon! 
+`circle-fit` is available from PyPi. Run the following in a command line terminal:
+`pip install circle-fit`
 
 ## Example
 Fit a circle to four `(x,y)` points.
 ```
-from circle-fit2 import taubinSVD
+from circle-fit import taubinSVD
 point_coordinates = [[1, 0], [-1, 0], [0, 1], [0, -1]]
 xc, yc, r, sigma = taubinSVD(point_coordinates)
 ```
