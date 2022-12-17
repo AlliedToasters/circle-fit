@@ -31,7 +31,7 @@ is a good starting point.
 ## Example
 Fit a circle to four `(x,y)` points.
 ```
-from circle-fit import taubinSVD
+from circle_fit import taubinSVD
 point_coordinates = [[1, 0], [-1, 0], [0, 1], [0, -1]]
 xc, yc, r, sigma = taubinSVD(point_coordinates)
 ```
