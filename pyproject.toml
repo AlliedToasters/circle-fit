@@ -3,16 +3,17 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "circle-fit2"
-version = "1.0.0"
+name = "circle-fit"
+version = "0.2.0"
 authors = [
-  { name="Magne Eik Lauritzen", email="mag.lauritzen@gmail.com" },
+    { name="Michael Klear", email="michael.r.klear@gmail.com" },
+    { name="Magne Eik Lauritzen", email="mag.lauritzen@gmail.com" },
 ]
 keywords = ["circle fitting", "data science"]
 description = "A Circle Fitting Library for Python"
 readme = "README.md"
 license = { file="LICENSE" }
-requires-python = ">=3.6"
+requires-python = ">=3.7"
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
@@ -20,11 +21,11 @@ classifiers = [
     "Intended Audience :: Science/Research"
 ]
 dependencies = [
-    "numpy>=1.20.0",
+    "numpy>=1.21.0",
     "matplotlib",
     "scipy"
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/nup002/circle-fit2"
-"Bug Tracker" = "https://github.com/nup002/circle-fit2/issues"
+"Homepage" = "https://github.com/AlliedToasters/circle-fit"
+"Bug Tracker" = "https://github.com/AlliedToasters/circle-fit/issues"
