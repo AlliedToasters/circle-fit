@@ -7,6 +7,7 @@ import numpy as np
 from src.circle_fit import riemannSWFLa, lm, prattSVD, taubinSVD, hyperSVD, kmh, hyperLSQ, standardLSQ
 from src.circle_fit import hyper_fit, least_squares_circle
 
+
 class AppTest(unittest.TestCase):
 
     perfect_delta = 1E-4
@@ -80,11 +81,13 @@ class AppTest(unittest.TestCase):
     def test_kmh(self):
         self.apply_test_repeatedly(kmh)
 
+
 class BackwardsCompatTest(unittest.TestCase):
-    
+
     """
     Unaltered original tests, for testing backwards compatibility.
     """
+    
     def setUp(self):
         self.startTime = time.time()
         self.data = [
