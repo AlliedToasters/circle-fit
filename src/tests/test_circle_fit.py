@@ -8,6 +8,7 @@ from src.circle_fit import riemannSWFLa, lm, prattSVD, taubinSVD, hyperSVD, kmh,
 from src.circle_fit import hyper_fit, least_squares_circle
 
 class AppTest(unittest.TestCase):
+
     perfect_delta = 1E-4
     noisy_delta = 1E-1
 
@@ -80,6 +81,7 @@ class AppTest(unittest.TestCase):
         self.apply_test_repeatedly(kmh)
 
 class BackwardsCompatTest(unittest.TestCase):
+    
     """
     Unaltered original tests, for testing backwards compatibility.
     """
@@ -111,12 +113,12 @@ class BackwardsCompatTest(unittest.TestCase):
         print("%s: %.3f seconds" % (self.id(), t))
 
     def test_hyper_fit(self):
-        circle = hyper_fit(self.data)
-        circle = hyper_fit(self.numpy_data)
+        _ = hyper_fit(self.data)
+        _ = hyper_fit(self.numpy_data)
 
     def test_circle_fit(self):
-        circle = least_squares_circle(self.data)
-        circle = least_squares_circle(self.numpy_data)
+        _ = least_squares_circle(self.data)
+        _ = least_squares_circle(self.numpy_data)
 
 
 if __name__ == '__main__':
