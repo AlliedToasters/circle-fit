@@ -83,11 +83,9 @@ class AppTest(unittest.TestCase):
 
 
 class BackwardsCompatTest(unittest.TestCase):
-
     """
     Unaltered original tests, for testing backwards compatibility.
     """
-    
     def setUp(self):
         self.startTime = time.time()
         self.data = [
