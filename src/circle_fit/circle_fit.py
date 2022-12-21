@@ -551,7 +551,7 @@ def standardLSQ(coords: Union[np.ndarray, List]) -> Tuple[float, ...]:
     s = sigma(x, y, xc, yc, r)
     return xc, yc, r, s
 
-    
+
 def plot_data_circle(coords: Union[npt.NDArray, List], xc: float, yc: float, r: float) -> None:
     """
     Plot data and a fitted circle.
