@@ -21,7 +21,6 @@ from typing import Union, List, Tuple
 
 import numpy as np
 import numpy.typing as npt
-from matplotlib import pyplot as plt
 from scipy import optimize  # type: ignore[import]
 from scipy.linalg import svd  # type: ignore[import]
 
@@ -567,6 +566,10 @@ def plot_data_circle(coords: Union[npt.NDArray, List], xc: float, yc: float, r: 
     Returns
     -------
     """
+    try:
+        from matplotlib import pyplot as plt
+    except ModuleNotFoundError:
+        raise ModuleNotFoundError("You must install matplotlib to use this feature!")
     x, y = convert_input(coords)
     _ = plt.figure(facecolor='white')
     plt.axis('equal')
