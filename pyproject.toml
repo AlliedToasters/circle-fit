@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "circle-fit"
-version = "0.2.0"
+version = "0.2.1"
 authors = [
     { name="Michael Klear", email="michael.r.klear@gmail.com" },
     { name="Magne Eik Lauritzen", email="mag.lauritzen@gmail.com" },
