@@ -498,8 +498,8 @@ def hyperLSQ(coords: Union[npt.NDArray, List], iter_max: int = 99) -> Tuple[floa
     A22 = A2 + A2
 
     # finding the root of the characteristic polynomial
-    X = A0
-    Y = 0.
+    Y = A0
+    X = 0.
     for i in range(iter_max):
         Dy = A1 + X * (A22 + 16. * (X ** 2))
         xnew = X - Y / Dy
