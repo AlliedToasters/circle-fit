@@ -585,3 +585,4 @@ def plot_data_circle(coords: Union[npt.NDArray, List], xc: float, yc: float, r: 
     plt.legend(loc='best', labelspacing=0.1)
     plt.grid()
     plt.title('Fit Circle')
+    plt.show()
